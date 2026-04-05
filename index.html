@@ -447,16 +447,96 @@
     }
 
     /* RESPONSIVE */
+    /* MOBILE */
     @media (max-width: 768px) {
       #app { flex-direction: column; }
-      #panel { width: 100%; height: auto; max-height: 40vh; border-left: none; border-top: 1px solid var(--border); }
-      #timeline { right: 0; bottom: 40vh; }
-      #met-display { font-size: 32px; }
-      #hud-top-right { top: auto; right: var(--space-sm); bottom: calc(40vh + 90px); max-width: 240px; }
-      .cam-btn { font-size: 10px; padding: 6px 10px; }
-      #angular-value { font-size: 48px; }
-      .cockpit-frame { border-width: 30px; border-radius: 30px; }
-      .cp-tl, .cp-tr, .cp-bl, .cp-br { display: none; }
+
+      /* 3D scene takes top portion */
+      #scene-container { flex: none; height: 55vh; }
+
+      /* Panel scrolls below */
+      #panel {
+        width: 100%; height: 45vh;
+        border-left: none; border-top: 1px solid var(--border);
+        overflow-y: auto;
+      }
+
+      /* MET smaller */
+      #hud-top-left { top: var(--space-sm); left: var(--space-sm); }
+      #met-display { font-size: 24px; }
+      .hud-label { font-size: 9px; }
+      #phase-display { font-size: 10px; }
+
+      /* Camera buttons — horizontal scroll at top */
+      #hud-top-right {
+        top: var(--space-sm); right: var(--space-sm); left: auto;
+        bottom: auto; max-width: 55%;
+        flex-wrap: wrap; gap: 3px;
+        justify-content: flex-end;
+      }
+      .cam-btn { font-size: 9px; padding: 5px 8px; }
+
+      /* Timeline at bottom of scene */
+      #timeline {
+        right: 0; bottom: 45vh; height: 60px;
+        padding: var(--space-sm) var(--space-md);
+      }
+      #timeline-labels { display: none; }
+      .time-btn { font-size: 9px; padding: 3px 6px; }
+      #utc-clock { font-size: 9px; }
+
+      /* Body labels smaller */
+      .body-label { font-size: 8px; }
+      .body-label .bl-detail { font-size: 7px; }
+      .body-label-line { height: 12px; }
+
+      /* Panel sections tighter */
+      .panel-section { padding: var(--space-sm) var(--space-md); }
+      .section-title { font-size: 10px; margin-bottom: var(--space-sm); }
+      .telem-label { font-size: 10px; }
+      .telem-value { font-size: 12px; }
+      .next-event-name { font-size: 14px; }
+      .next-event-countdown { font-size: 18px; }
+      .crew-name { font-size: 13px; }
+
+      /* Angular display */
+      #angular-display { bottom: calc(45vh + 70px); }
+      #angular-value { font-size: 36px; }
+      #angular-unit { font-size: 9px; }
+
+      /* Cockpit — thinner frame */
+      .cockpit-frame { border-width: 30px !important; border-bottom-width: 80px !important; border-radius: 20px !important; }
+      .cockpit-edge { top: 28px; left: 28px; right: 28px; bottom: 78px; }
+      .cockpit-console { height: 80px; }
+      .cockpit-hull-left, .cockpit-hull-right { width: 30px; top: 30px; bottom: 80px; }
+      .cp-tl, .cp-tr { top: 40px; }
+      .cp-bl, .cp-br { bottom: 90px; }
+      .cp-tl, .cp-bl { left: 40px; }
+      .cp-tr, .cp-br { right: 40px; }
+      .cp-ml, .cp-mr { display: none; }
+      .cp-label { font-size: 8px; }
+      .cp-value { font-size: 12px; }
+      .cp-bc { bottom: 35px; }
+      .cp-bc .cp-met { font-size: 18px; }
+      .cp-tc { top: 35px; }
+      .cp-credits, .cp-datasrc { display: none; }
+      .cockpit-ticks-left, .cockpit-ticks-right { display: none; }
+      .cp-bracket-tl { top: 30px; left: 30px; }
+      .cp-bracket-tr { top: 30px; right: 30px; }
+      .cp-bracket-bl { bottom: 80px; left: 30px; }
+      .cp-bracket-br { bottom: 80px; right: 30px; }
+      .cockpit-window-id { top: 10px; font-size: 7px; }
+      #cockpit-close { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 14px; }
+    }
+
+    /* Small phones */
+    @media (max-width: 400px) {
+      #scene-container { height: 50vh; }
+      #panel { height: 50vh; }
+      #met-display { font-size: 20px; }
+      .cam-btn { font-size: 8px; padding: 4px 6px; }
+      #timeline { bottom: 50vh; }
+      #angular-display { bottom: calc(50vh + 70px); }
     }
   </style>
 </head>
