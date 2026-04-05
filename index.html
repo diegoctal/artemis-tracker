@@ -88,6 +88,22 @@
     .cam-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
     .cam-btn.active { background: var(--text-display); border-color: var(--text-display); color: var(--black); }
 
+    /* TRAJECTORY LEGEND */
+    #traj-legend {
+      position: absolute; top: var(--space-lg); right: var(--space-lg);
+      margin-top: 48px;
+      z-index: 10; display: flex; gap: var(--space-md);
+      justify-content: flex-end; pointer-events: none;
+    }
+    .legend-item {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 0.08em; color: var(--text-secondary);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .legend-line {
+      display: inline-block; width: 16px; height: 2px; border-radius: 1px;
+    }
+
     /* ANGULAR DISPLAY */
     #angular-display {
       position: absolute; bottom: 170px; left: 50%;
@@ -484,6 +500,12 @@
       }
       .cam-btn { font-size: 8px; padding: 4px 8px; flex-shrink: 1; }
 
+      #traj-legend {
+        top: auto; bottom: 42px; left: 10px; right: 10px;
+        margin-top: 0; justify-content: center;
+      }
+      .legend-item { font-size: 8px; }
+
       /* Timeline — above camera buttons */
       #timeline {
         right: 0; bottom: 36px; height: 44px;
@@ -553,6 +575,12 @@
         <button class="cam-btn" data-cam="moon">MOON</button>
         <button class="cam-btn" data-cam="sun">SUN</button>
         <button class="cam-btn" data-cam="crew">CREW POV</button>
+      </div>
+
+      <!-- TRAJECTORY LEGEND -->
+      <div id="traj-legend">
+        <div class="legend-item"><span class="legend-line" style="background:#D71921"></span> COMPLETED</div>
+        <div class="legend-item"><span class="legend-line" style="background:#FFD000"></span> REMAINING</div>
       </div>
 
       <!-- ANGULAR DIAMETER -->

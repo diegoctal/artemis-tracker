@@ -396,17 +396,13 @@ scene.add(orionGroup);
 // ============================================
 const trajPoints = ORION_DATA.map(p => new THREE.Vector3(p.x * SCALE, p.z * SCALE, -p.y * SCALE));
 
-// Full path — dotted red (future trajectory, every 4th point)
-const trajDotPositions = [];
-for (let i = 0; i < trajPoints.length; i += 4) {
-  trajDotPositions.push(trajPoints[i].x, trajPoints[i].y, trajPoints[i].z);
-}
-const trajDotsGeo = new THREE.BufferGeometry();
-trajDotsGeo.setAttribute('position', new THREE.Float32BufferAttribute(trajDotPositions, 3));
-const trajDots = new THREE.Points(trajDotsGeo, new THREE.PointsMaterial({
-  color: 0xD71921, size: 0.4, transparent: true, opacity: 0.3, sizeAttenuation: true,
-}));
-scene.add(trajDots);
+// Full path — yellow line (future/remaining trajectory)
+const trajFuturePositions = new Float32Array(trajPoints.length * 3);
+trajPoints.forEach((p, i) => { trajFuturePositions[i*3]=p.x; trajFuturePositions[i*3+1]=p.y; trajFuturePositions[i*3+2]=p.z; });
+const trajFutureGeo = new THREE.BufferGeometry();
+trajFutureGeo.setAttribute('position', new THREE.BufferAttribute(trajFuturePositions, 3));
+const trajFutureLine = new THREE.Line(trajFutureGeo, new THREE.LineBasicMaterial({ color: 0xFFD000, transparent: true, opacity: 0.45 }));
+scene.add(trajFutureLine);
 
 // Completed portion — red
 const trajCompPositions = new Float32Array(trajPoints.length * 3);
@@ -756,10 +752,12 @@ function animate(now) {
   emLinePos[3]=moonScene.x; emLinePos[4]=moonScene.y; emLinePos[5]=moonScene.z;
   emLineGeo.attributes.position.needsUpdate = true;
 
-  // Trajectory completed portion
+  // Trajectory completed (red) and remaining (yellow) portions
   if (inMission) {
     const idx = orionTimes.findIndex(t => t > currentMs);
-    trajCompGeo.setDrawRange(0, idx >= 0 ? idx : trajPoints.length);
+    const splitIdx = idx >= 0 ? idx : trajPoints.length;
+    trajCompGeo.setDrawRange(0, splitIdx);
+    trajFutureGeo.setDrawRange(splitIdx, trajPoints.length - splitIdx);
   }
 
   // Trail
@@ -881,7 +879,7 @@ function animate(now) {
   // --- Hide Orion + trajectory elements in crew POV ---
   const inCrew = activeCamera === 'crew';
   orionGroup.visible = !inCrew;
-  trajDots.visible = !inCrew;
+  trajFutureLine.visible = !inCrew;
   trajCompLine.visible = !inCrew;
 
   // --- Camera ---
