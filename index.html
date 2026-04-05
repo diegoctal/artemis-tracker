@@ -451,92 +451,80 @@
     @media (max-width: 768px) {
       #app { flex-direction: column; }
 
-      /* 3D scene takes top portion */
-      #scene-container { flex: none; height: 55vh; }
+      /* Scene gets remaining space */
+      #scene-container { flex: 1; min-height: 0; }
 
-      /* Panel scrolls below */
+      /* Panel at bottom, fixed height, scrollable */
       #panel {
-        width: 100%; height: 45vh;
+        width: 100%; flex: none; height: 35%;
         border-left: none; border-top: 1px solid var(--border);
         overflow-y: auto;
       }
-
-      /* MET smaller */
-      #hud-top-left { top: var(--space-sm); left: var(--space-sm); }
-      #met-display { font-size: 24px; }
-      .hud-label { font-size: 9px; }
-      #phase-display { font-size: 10px; }
-
-      /* Camera buttons — horizontal scroll at top */
-      #hud-top-right {
-        top: var(--space-sm); right: var(--space-sm); left: auto;
-        bottom: auto; max-width: 55%;
-        flex-wrap: wrap; gap: 3px;
-        justify-content: flex-end;
-      }
-      .cam-btn { font-size: 9px; padding: 5px 8px; }
-
-      /* Timeline at bottom of scene */
-      #timeline {
-        right: 0; bottom: 45vh; height: 60px;
-        padding: var(--space-sm) var(--space-md);
-      }
-      #timeline-labels { display: none; }
-      .time-btn { font-size: 9px; padding: 3px 6px; }
-      #utc-clock { font-size: 9px; }
-
-      /* Body labels smaller */
-      .body-label { font-size: 8px; }
-      .body-label .bl-detail { font-size: 7px; }
-      .body-label-line { height: 12px; }
-
-      /* Panel sections tighter */
-      .panel-section { padding: var(--space-sm) var(--space-md); }
-      .section-title { font-size: 10px; margin-bottom: var(--space-sm); }
+      .panel-section { padding: 10px 14px; }
+      .section-title { font-size: 10px; margin-bottom: 8px; }
       .telem-label { font-size: 10px; }
       .telem-value { font-size: 12px; }
       .next-event-name { font-size: 14px; }
       .next-event-countdown { font-size: 18px; }
       .crew-name { font-size: 13px; }
+      .crew-member { padding: 5px 0; }
+
+      /* MET — compact, top left */
+      #hud-top-left { top: 8px; left: 10px; }
+      .hud-label { font-size: 8px; }
+      #met-display { font-size: 20px; }
+      #phase-display { font-size: 9px; margin-top: 2px; }
+
+      /* Camera buttons — below MET */
+      #hud-top-right {
+        position: absolute;
+        top: auto; bottom: 8px; left: 10px; right: 10px;
+        justify-content: center; gap: 4px;
+        flex-wrap: nowrap; max-width: none;
+      }
+      .cam-btn { font-size: 8px; padding: 4px 8px; flex-shrink: 1; }
+
+      /* Timeline — above camera buttons */
+      #timeline {
+        right: 0; bottom: 36px; height: 44px;
+        padding: 4px 10px;
+      }
+      #timeline-labels { display: none; }
+      #time-controls { display: none; }
+      #timeline-bar { margin-bottom: 4px; }
+      #utc-clock { display: none; }
+
+      /* Body labels */
+      .body-label { font-size: 8px; }
+      .body-label .bl-detail { display: none; }
+      .body-label-line { height: 10px; }
 
       /* Angular display */
-      #angular-display { bottom: calc(45vh + 70px); }
-      #angular-value { font-size: 36px; }
-      #angular-unit { font-size: 9px; }
+      #angular-display { bottom: 90px; }
+      #angular-value { font-size: 32px; }
+      #angular-unit { font-size: 8px; }
 
-      /* Cockpit — thinner frame */
-      .cockpit-frame { border-width: 30px !important; border-bottom-width: 80px !important; border-radius: 20px !important; }
-      .cockpit-edge { top: 28px; left: 28px; right: 28px; bottom: 78px; }
-      .cockpit-console { height: 80px; }
-      .cockpit-hull-left, .cockpit-hull-right { width: 30px; top: 30px; bottom: 80px; }
-      .cp-tl, .cp-tr { top: 40px; }
-      .cp-bl, .cp-br { bottom: 90px; }
-      .cp-tl, .cp-bl { left: 40px; }
-      .cp-tr, .cp-br { right: 40px; }
-      .cp-ml, .cp-mr { display: none; }
-      .cp-label { font-size: 8px; }
-      .cp-value { font-size: 12px; }
-      .cp-bc { bottom: 35px; }
-      .cp-bc .cp-met { font-size: 18px; }
-      .cp-tc { top: 35px; }
+      /* Cockpit */
+      .cockpit-frame { border-width: 20px !important; border-bottom-width: 60px !important; border-radius: 16px !important; }
+      .cockpit-edge { top: 18px; left: 18px; right: 18px; bottom: 58px; }
+      .cockpit-console { height: 60px; }
+      .cockpit-hull-left, .cockpit-hull-right { width: 20px; top: 20px; bottom: 60px; }
+      .cp-tl, .cp-tr { top: 28px; }
+      .cp-bl, .cp-br { bottom: 68px; }
+      .cp-tl, .cp-bl { left: 28px; }
+      .cp-tr, .cp-br { right: 28px; }
+      .cp-ml, .cp-mr, .cp-tc { display: none; }
+      .cp-label { font-size: 7px; }
+      .cp-value { font-size: 11px; }
+      .cp-bc { bottom: 20px; }
+      .cp-bc .cp-met { font-size: 16px; }
       .cp-credits, .cp-datasrc { display: none; }
       .cockpit-ticks-left, .cockpit-ticks-right { display: none; }
-      .cp-bracket-tl { top: 30px; left: 30px; }
-      .cp-bracket-tr { top: 30px; right: 30px; }
-      .cp-bracket-bl { bottom: 80px; left: 30px; }
-      .cp-bracket-br { bottom: 80px; right: 30px; }
-      .cockpit-window-id { top: 10px; font-size: 7px; }
-      #cockpit-close { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 14px; }
-    }
-
-    /* Small phones */
-    @media (max-width: 400px) {
-      #scene-container { height: 50vh; }
-      #panel { height: 50vh; }
-      #met-display { font-size: 20px; }
-      .cam-btn { font-size: 8px; padding: 4px 6px; }
-      #timeline { bottom: 50vh; }
-      #angular-display { bottom: calc(50vh + 70px); }
+      .cp-bracket { display: none; }
+      .cockpit-scanlines { display: none; }
+      .cockpit-window-id { top: 6px; font-size: 6px; }
+      #cockpit-close { top: 6px; right: 6px; width: 28px; height: 28px; font-size: 12px; }
+      .cockpit-reticle { width: 80px; height: 80px; }
     }
   </style>
 </head>
