@@ -826,7 +826,7 @@ function animate(now) {
 
     const nextEv = getNextEvent(currentMs);
     nextEventName.textContent = nextEv.name;
-    nextEventCountdown.textContent = formatCountdown(nextEv.time - currentMs);
+    nextEventCountdown.textContent = formatCountdown(-(nextEv.time - currentMs));
 
     angularValue.textContent = angDiam.toFixed(1) + '°';
 
