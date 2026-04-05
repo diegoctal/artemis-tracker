@@ -357,16 +357,16 @@ scene.add(moonGroup);
 // ============================================
 // MOON ORBIT LINE
 // ============================================
-// Moon orbit as dotted yellow line (every 3rd point)
-const moonOrbitDotPos = [];
-for (let i = 0; i < MOON_DATA.length; i += 3) {
+// Moon orbit as light blue line
+const moonOrbitPositions = [];
+for (let i = 0; i < MOON_DATA.length; i++) {
   const p = MOON_DATA[i];
-  moonOrbitDotPos.push(p.x * SCALE, p.z * SCALE, -p.y * SCALE);
+  moonOrbitPositions.push(p.x * SCALE, p.z * SCALE, -p.y * SCALE);
 }
 const moonOrbitGeo = new THREE.BufferGeometry();
-moonOrbitGeo.setAttribute('position', new THREE.Float32BufferAttribute(moonOrbitDotPos, 3));
-scene.add(new THREE.Points(moonOrbitGeo, new THREE.PointsMaterial({
-  color: 0xD4A843, size: 0.5, transparent: true, opacity: 0.35, sizeAttenuation: true,
+moonOrbitGeo.setAttribute('position', new THREE.Float32BufferAttribute(moonOrbitPositions, 3));
+scene.add(new THREE.Line(moonOrbitGeo, new THREE.LineBasicMaterial({
+  color: 0x6EC6FF, transparent: true, opacity: 0.45,
 })));
 
 // ============================================
